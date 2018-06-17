@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkGray"
+        android:text="喜欢就赞一个吧"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <!--头部文字-->
+    <TextView
+        android:id="@+id/setting_dialog_reward_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkGray"
+        android:text="你人这么好，若不幸福天理难容"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <!--二维码图-->
+    <ImageView
+        android:id="@+id/setting_dialog_reward_qr_code_iv"
+        android:layout_width="200dp"
+        android:layout_height="220dp"
+        android:layout_margin="15dp"
+        android:src="@mipmap/weixin_pay"
+        android:layout_gravity="center_horizontal"/>
+
+    <!--两个按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/setting_dialog_reward_contact_net_see_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGray"
+            android:text="连接网络看赞赏人数"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/setting_dialog_reward_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGray"
+            android:text="已有"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/setting_dialog_reward_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorRedText"
+            android:text="9932"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/setting_dialog_reward_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGray"
+            android:text="人赞赏"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <!--两个按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--支付宝按钮-->
+        <FrameLayout
+            android:id="@+id/reward_alipay_btn_fl"
+            android:clickable="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_height="50dp"
+            android:background="@drawable/reward_alipay_btn_bg_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付宝"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite" />
+
+        </FrameLayout>
+
+        <!--微信按钮-->
+        <FrameLayout
+            android:id="@+id/reward_weixin_pay_btn_fl"
+            android:clickable="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_height="50dp"
+            android:background="@drawable/reward_weixin_pay_btn_bg_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:textColor="@color/colorWhite" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
