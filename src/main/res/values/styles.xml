@@ -12,9 +12,9 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_width">200dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">50sp</item>
+        <item name="android:textSize">45sp</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:padding">20dp</item>
+        <item name="android:padding">15dp</item>
     </style>
 
     <!--修改EditText的下划线和光标样式-->

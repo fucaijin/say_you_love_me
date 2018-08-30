@@ -8,19 +8,11 @@
     android:background="#FFFFFF"
     tools:context="com.fucaijin.sayyouloveme.activity.MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="30dp">
-        <TextView
-            android:id="@+id/main_small_text_tv"
-            android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#353535"
-            android:text="hey，小姐姐"
-            android:textSize="25sp"/>
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,6 +21,16 @@
             android:gravity="bottom">
 
             <TextView
+                android:id="@+id/main_small_text_tv"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#353535"
+                android:text="hey，小姐姐"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
                 android:id="@+id/main_big_text_tv"
                 android:textColor="#353535"
                 android:layout_width="wrap_content"
@@ -37,9 +39,10 @@
                 android:text="喜欢我吗" />
 
             <ImageView
+                android:layout_marginTop="10dp"
                 android:id="@+id/main_emoji_iv"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/emoji_give_you_flower"
                 android:layout_margin="5dp" />
 
@@ -47,18 +50,20 @@
 
 
         <LinearLayout
+            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true">
 
             <Button
                 android:id="@+id/main_like_btn"
                 android:text="喜欢"
                 android:background="@drawable/setting_start_button"
                 android:textColor="#FFFFFF"
-                style="@style/button" />
+                style="@style/button"
+                android:layout_marginTop="0dp"/>
 
             <Button
                 android:id="@+id/main_not_like_btn"
@@ -67,7 +72,8 @@
                 android:background="@drawable/false_button_bg"
                 style="@style/button"/>
         </LinearLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
 
 
 </FrameLayout>

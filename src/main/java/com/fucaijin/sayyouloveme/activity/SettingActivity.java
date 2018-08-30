@@ -2,6 +2,7 @@ package com.fucaijin.sayyouloveme.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import com.fucaijin.sayyouloveme.R;
 import com.fucaijin.sayyouloveme.utils.ConvertUtils;
+import com.tencent.stat.StatService;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -256,9 +258,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     }
                 } else {
                     if (b) {
+                        StatService.trackCustomKVEvent(SettingActivity.this, "ShowEmoji", null);
                         emojiReviewIv.setVisibility(View.VISIBLE);
                         Toast.makeText(SettingActivity.this, "开启了显示表情", Toast.LENGTH_SHORT).show();
                     } else {
+                        StatService.trackCustomKVEvent(SettingActivity.this, "CloseShowEmoji", null);
                         emojiReviewIv.setVisibility(View.GONE);
                         Toast.makeText(SettingActivity.this, "关闭了显示表情", Toast.LENGTH_SHORT).show();
                     }
@@ -279,9 +283,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     }
                 } else {
                     if (b) {
+                        StatService.trackCustomKVEvent(SettingActivity.this, "DefaultEmoji", null);
                         emojiReviewIv.setImageResource(R.drawable.emoji_give_you_flower);
                         Toast.makeText(SettingActivity.this, "使用默认表情图", Toast.LENGTH_SHORT).show();
                     } else {
+                        StatService.trackCustomKVEvent(SettingActivity.this, "CloseDefaultEmoji", null);
                         Toast.makeText(SettingActivity.this, "取消使用默认表情图", Toast.LENGTH_SHORT).show();
                         emojiReviewIv.setImageResource(R.color.colorWhite);
                         isNoneEmoji = true;
@@ -296,14 +302,61 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (!isFirstRun) {
                     if (b) {
+                        StatService.trackCustomKVEvent(SettingActivity.this, "EnableBackBtn", null);
                         Toast.makeText(SettingActivity.this, "已经禁用返回键", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SettingActivity.this, "返回键已可使用", Toast.LENGTH_SHORT).show();
+                        StatService.trackCustomKVEvent(SettingActivity.this, "AbleBackBtn", null);
                     }
                 }
                 isDisableBack = b;
             }
         });
+
+        openAnimCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    StatService.trackCustomKVEvent(SettingActivity.this, "OpenAnimateCb", null);
+                }else {
+                    StatService.trackCustomKVEvent(SettingActivity.this, "CloseAnimateCb", null);
+                }
+            }
+        });
+
+        alphaAnimCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    StatService.trackCustomKVEvent(SettingActivity.this, "OpenAlphaCb", null);
+                }else {
+                    StatService.trackCustomKVEvent(SettingActivity.this, "CloseAlphaCb", null);
+                }
+            }
+        });
+
+        scaleAnimCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    StatService.trackCustomKVEvent(SettingActivity.this, "OpenScaleCb", null);
+                }else {
+                    StatService.trackCustomKVEvent(SettingActivity.this, "CloseScaleCb", null);
+                }
+            }
+        });
+
+        translateAnimCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    StatService.trackCustomKVEvent(SettingActivity.this, "OpenTranslateCb", null);
+                }else {
+                    StatService.trackCustomKVEvent(SettingActivity.this, "CloseTranslateCb", null);
+                }
+            }
+        });
+
 
     }
 
@@ -317,21 +370,25 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 showRewardDialog();
                 break;
             case R.id.setting_start_get_object_btn:
+                StatService.trackCustomKVEvent(this, "PlayBtn", null);//统计点击播放按钮的次数
                 startMainActivity();
                 break;
             case R.id.reward_alipay_btn_fl:
+                StatService.trackCustomKVEvent(this, "Alipay", null);//统计支付宝按钮的点击次数
 //                Drawable drawable = getResources().getDrawable(R.drawable.reward_alipay_btn_bg_selected, null);
                 qrCode.setImageResource(alipay);
                 alipayBtn.setBackgroundResource(R.drawable.reward_alipay_btn_bg_selected);
                 weixinPayBtn.setBackgroundResource(R.drawable.reward_weixin_pay_btn_bg_normal);
                 break;
             case R.id.reward_weixin_pay_btn_fl:
+                StatService.trackCustomKVEvent(this, "Weixinpay", null);//统计支付宝按钮的点击次数
                 qrCode.setImageResource(weixin_pay);
                 alipayBtn.setBackgroundResource(R.drawable.reward_alipay_btn_bg_normal);
                 weixinPayBtn.setBackgroundResource(R.drawable.reward_weixin_pay_btn_bg_selected);
                 break;
             case R.id.setting_select_other_emoji:
                 if (isShowEmoji) {
+                    StatService.trackCustomKVEvent(this, "CustomEmojiBtn", null);
                     showDefaultEmojiCb.setChecked(false);
                     selectImage();
                 } else {
@@ -340,9 +397,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.setting_reset_get_boy:
+                StatService.trackCustomKVEvent(SettingActivity.this, "GetBoyBtn", null);
                 initGetBoyData();
                 break;
             case R.id.setting_reset_get_girl:
+                StatService.trackCustomKVEvent(SettingActivity.this, "GetGirlBtn", null);
                 initGetGirlData();
                 break;
         }
@@ -390,12 +449,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         intent.putExtra("isOpenAlphaAnim", alphaAnimCb.isChecked());
         intent.putExtra("isOpenScaleAnim", scaleAnimCb.isChecked());
         intent.putExtra("isOpenTranslateAnim", translateAnimCb.isChecked());
-        if (!isNoneEmoji) {//如果不是空图，才传输图像
+        if (!isNoneEmoji) {//如果不是空图，就传输图像到下一个页面(MainActivity)
             Bundle b = new Bundle();
             b.putParcelable("customEmojiBitmap", customEmojiBitmap);
             intent.putExtras(b);
         }
-        //TODO 传递要显示的表情图
         startActivity(intent);
         finish();
     }
@@ -404,11 +462,22 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
      * 弹出赞赏的弹窗
      */
     private void showRewardDialog() {
-        LayoutInflater inflaterNotLike = LayoutInflater.from(this);
-        View dialogReward = inflaterNotLike.inflate(R.layout.setting_reward_dialog_view, null);
+        StatService.trackCustomKVEvent(this, "RewardBtn", null);//统计赞赏Dialog的被点击次数
+        StatService.trackCustomBeginEvent(this, "RewardBtn", "run_time");//开始计算赞赏Dialog的运行时长
+
+        LayoutInflater inflaterRewardView = LayoutInflater.from(this);
+        View dialogReward = inflaterRewardView.inflate(R.layout.setting_reward_dialog_view, null);
         initRewardDialogUi(dialogReward);
         AlertDialog alertDialogReward = new AlertDialog.Builder(this).setView(dialogReward).create();
         alertDialogReward.show();
+
+//        监听赞赏弹窗的关闭，用于统计弹窗的显示时长
+        alertDialogReward.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                StatService.trackCustomEndEvent(SettingActivity.this, "RewardBtn", "run_time");//结束计算赞赏Dialog的运行时长
+            }
+        });
     }
 
     /**
@@ -550,12 +619,21 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
      * 弹出分享的弹窗
      */
     private void showShareDialog() {
-//        TODO 真实下载的二维码图片还没更换
-        LayoutInflater inflaterNotLike = LayoutInflater.from(this);
-        View dialogShare = inflaterNotLike.inflate(R.layout.setting_share_dialog_view, null);
+        StatService.trackCustomKVEvent(this, "ShareBtn", null);
+        StatService.trackCustomBeginEvent(this, "ShareBtn", "run_time");//开始计算赞赏Dialog的运行时长
 
-        AlertDialog alertDialogNotLike = new AlertDialog.Builder(this).setView(dialogShare).create();
-        alertDialogNotLike.show();
+        LayoutInflater inflaterShareView = LayoutInflater.from(this);
+        View dialogShare = inflaterShareView.inflate(R.layout.setting_share_dialog_view, null);
+
+        AlertDialog alertDialogShare = new AlertDialog.Builder(this).setView(dialogShare).create();
+        alertDialogShare.show();
+        //        监听赞赏弹窗的关闭，用于统计弹窗的显示时长
+        alertDialogShare.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                StatService.trackCustomEndEvent(SettingActivity.this, "ShareBtn", "run_time");//结束计算赞赏Dialog的运行时长
+            }
+        });
     }
 
     private void selectImage() {
@@ -628,13 +706,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.setting_share_tv:
                 TextView textView = new TextView(this);
-//                TODO 此处的两个下载网址未换成真实网址
-                textView.setText("打开网址下载小秘密：\nhttps://github.com/fucaijin/pageturing/raw/master/apk/pageturning-release.apk");
+                textView.setText("打开网址下载小秘密：\nhttps://github.com/fucaijin/fucaijin_release_app/raw/master/sayyouloveme.apk");
                 textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorDarkGray));
                 textView.setTextSize(ConvertUtils.sp2px(getApplicationContext(), 5));
                 textView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorWhite));
-                AlertDialog alertDialogNotLike = new AlertDialog.Builder(this).setView(textView).create();
-                alertDialogNotLike.show();
+                AlertDialog alertDialogShare = new AlertDialog.Builder(this).setView(textView).create();
+                alertDialogShare.show();
                 break;
             case R.id.setting_reward_tv:
 //                LayoutInflater inflaterNotLike = LayoutInflater.from(this);
@@ -645,6 +722,19 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatService.trackCustomKVEvent(this, "SettingPage", null);// MTA:进入首页事件,统计用户进入首页的次数
+        StatService.trackCustomBeginEvent(this, "SettingPage", "run_time");//开始计算本页面的运行时长
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StatService.trackCustomEndEvent(this, "SettingPage", "run_time");//结束计算本页面的运行时长
     }
 }
 

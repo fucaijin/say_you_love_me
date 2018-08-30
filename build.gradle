@@ -9,11 +9,24 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
-        versionName "1.1"
+        versionName "1.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        ndk {
+//根据需要 自行选择添加的对应cpu类型的.so库。以下是我装了所有的cpu类型的.so库
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                MTA_APPKEY:"APC79NWV62IV",
+                MTA_CHANNEL:"GitHub"
+        ]
+
     }
+
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,4 +42,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
+
+    //mta 3.3 稳定版
+    compile 'com.qq.mta:mta:3.3.1-release'
+
+    //mid  jar包 必须添加
+    compile 'com.tencent.mid:mid:3.73-release'
 }

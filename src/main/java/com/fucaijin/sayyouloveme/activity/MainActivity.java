@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fucaijin.sayyouloveme.R;
+import com.tencent.stat.StatService;
 
 import java.util.Random;
 
@@ -54,7 +55,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        //TODO 获取传过来的数据，并实现相应逻辑
         smallTextStr = getIntent().getStringExtra("smallTextStr");
         bigTextStr = getIntent().getStringExtra("bigTextStr");
         redBtnTextStr = getIntent().getStringExtra("redBtnTextStr");
@@ -114,7 +114,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_not_like_btn:
-                // TODO 点了按钮5秒后关闭
+                StatService.trackCustomKVEvent(this, "WhiteBtn", null);//统计白色按钮的点击次数
+
+//                弹出回答弹窗
                 LayoutInflater inflater = LayoutInflater.from(this);
                 View dialogView = inflater.inflate(R.layout.main_dialog_view, null);
                 TextView tv = dialogView.findViewById(R.id.tv_dialog_text);
@@ -129,6 +131,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 alertDialog.show();
                 break;
             case R.id.main_like_btn:
+                StatService.trackCustomKVEvent(this, "RedBtn", null);//统计红色按钮的点击次数
+
+//                弹出回答弹窗
                 LayoutInflater inflaterNotLike = LayoutInflater.from(this);
                 View dialogViewNotLike = inflaterNotLike.inflate(R.layout.main_dialog_view, null);
                 TextView tvNotLike = dialogViewNotLike.findViewById(R.id.tv_dialog_text);
@@ -353,5 +358,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             p.setMargins(l, t, r, b);
             v.requestLayout();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatService.trackCustomKVEvent(this, "PlayPage", null);// MTA:进入首页事件,统计进入播放页面的次数
+        StatService.trackCustomBeginEvent(this, "PlayPage", "run_time");//开始计算本页面的运行时长
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StatService.trackCustomEndEvent(this, "PlayPage", "run_time");//结束计算本页面的运行时长
     }
 }
